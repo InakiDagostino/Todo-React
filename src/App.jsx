@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import {TodoItem} from "./assets/TodoItem"
 
+import "./css/main.css"
+
 function App() {
   const [todos, setTodos] = useState( () => {
     const localValue = localStorage.getItem("ITEMS")
@@ -37,22 +39,25 @@ function App() {
   }
 
   return (
-    <>
-    <h1>Todo List</h1>
-      <div className='list'>
-        <ul>
-          {todos.length === 0 && "No Todos"}
-          {todos.map((todo) => {
-              return <TodoItem key={todo.id} {...todo} deleteTodo={deleteTodo} />
-            })
-          }
-        </ul>
+    <main className='main'>
+      <div className="content">
+        <h1>Todo List</h1>
+        <div className='list'>
+          <ul>
+            {todos.length === 0 && <h3>No Todos</h3>}
+            {todos.map((todo) => {
+                return <TodoItem key={todo.id} {...todo} deleteTodo={deleteTodo} />
+              })
+            }
+          </ul>
+        </div>
+        <form action="" onSubmit={handleTodo}>
+          <input className='input' type="text" value={items} onChange={e => setItems(e.target.value)} />
+          <button className='btn primary'>To Do</button>
+        </form>
       </div>
-      <form action="" onSubmit={handleTodo}>
-        <input type="text" value={items} onChange={e => setItems(e.target.value)} />
-        <button>To Do</button>
-      </form>
-    </>
+      
+    </main>
   )
 }
 
